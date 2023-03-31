@@ -7,7 +7,8 @@ new Env('吾爱破解');
 import requests, sys, re, traceback
 from io import StringIO
 from bs4 import BeautifulSoup
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class W2PJ:
     def __init__(self, cookie):
