@@ -5,7 +5,8 @@ new Env('签到集合')
 
 import traceback, argparse
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 from KDsrc.more import map
 
 all = StringIO()
@@ -58,26 +59,3 @@ else:
         all.write('无签到')
 print(all.getvalue())
 send('每日签到', all.getvalue())
-
-
-# for name, sign in map.items():
-# for name in signList.split(', '):
-#     try:
-#         sign = map.get(name, [])
-#         if config.get(name) != None and len(sign) == 2:
-#             print(f'{sign[0]} 开始签到...')
-#             if config.get(name).get('cookies') != None:
-#                 sio = sign[1](config.get(name).get('cookies', {})).SignIn()
-#                 print(sio.getvalue())
-#                 all.write(sio.getvalue() + '\n')
-#             else:
-#                 print(f'{sign[0]} 没有配置文件')
-#                 all.write(f'{sign[0]} 没有配置文件\n')
-#         else:
-#             all.write(f'没有 {name} 相关签到\n\n')
-#     except:
-#         print(traceback.format_exc())
-# else:
-#     all.write('\n')
-# print(all.getvalue().replace('\n\n\n', ''))
-# send('每日签到', all.getvalue().replace('\n\n\n', ''))

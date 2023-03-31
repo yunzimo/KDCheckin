@@ -6,7 +6,8 @@ new Env('CCAVA');
 
 import requests, traceback, sys
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class CCAVA:
     def __init__(self, cookie):

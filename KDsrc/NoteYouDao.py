@@ -6,7 +6,8 @@ new Env('有道云');
 
 import requests, time, sys, traceback
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class NoteYouDao:
     def __init__(self, cookie):

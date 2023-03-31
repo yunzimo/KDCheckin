@@ -6,7 +6,8 @@ new Env('百度贴吧');
 
 import requests, time, re, json, sys, traceback, hashlib
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class BDTieBa:
     def __init__(self, cookie):

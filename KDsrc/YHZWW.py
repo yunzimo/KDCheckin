@@ -8,7 +8,8 @@ from signal import valid_signals
 import requests, time, re, json, sys, traceback
 from io import StringIO
 from bs4 import BeautifulSoup
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class YHZWW:
     def __init__(self, cookie):

@@ -5,7 +5,8 @@ new Env('葫芦侠')
 
 import requests, json, sys, hashlib, traceback, time
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 from bs4 import BeautifulSoup
 
 class HLX:

@@ -5,7 +5,8 @@ new Env('天翼云盘');
 
 import requests, time, re, json, sys, traceback
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class Cloud:
     def __init__(self, cookie):

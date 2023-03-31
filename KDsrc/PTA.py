@@ -5,7 +5,8 @@ new Env('PTA')
 
 import requests, sys, traceback
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 dio = StringIO()
 

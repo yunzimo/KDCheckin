@@ -6,8 +6,8 @@ new Env('吾爱破解');
 
 import requests, sys, re, traceback
 from io import StringIO
-from bs4 import BeautifulSoup
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class W2PJ:
     def __init__(self, cookie):
@@ -17,27 +17,19 @@ class W2PJ:
 
     # 签到
     def task(self):
-        session = requests.Session()
+        session = requests.session()
         headers = {
-            "Referer": "https://www.52pojie.cn",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
             "Cookie": self.cookie,
+            "ContentType": "text/html;charset=gbk",
         }
-        res = requests.get(url="https://www.52pojie.cn/home.php?mod=task&do=apply&id=2&referer=%2F", headers=headers)
-        p1 = re.findall('\|\/(.*=)\|', res.text)[0]
-        res = requests.get(url=f"https://www.52pojie.cn/{p1}?wzwscspd=MC4wLjAuMA==", headers=headers, allow_redirects=False)
-        wzws_sid = re.findall('wzws_sid=([0-9a-z]+); ', res.headers['set-cookie'])[0]
-        if headers['Cookie'][-1] != ';':
-            headers['Cookie'] += ';'
-        headers['Cookie'] += f' wzws_sid={wzws_sid};'
-        resp = session.get(f"https://www.52pojie.cn/home.php?mod=task&do=apply&id=2&referer=%2F", headers=headers)
-        soup = BeautifulSoup(resp.text, "html.parser")
-        content = soup.select("#messagetext>p")
-        soup = BeautifulSoup(resp.text, "html.parser")
+        session.post(url="https://www.52pojie.cn/home.php?mod=task&do=apply&id=2", headers=headers)
+        resp = session.post(url="https://www.52pojie.cn/home.php?mod=task&do=draw&id=2", headers=headers)
+        content = re.findall(r'<div id="messagetext".*?\n<p>(.*?)</p>', resp.text)
         if len(content) == 0:
             print('出现了问题')
         else:
-            print(content[0].get_text())
+            print(content[0])
         if '恭喜' in resp.text:
             self.sio.write('签到成功')
             self.getCB()

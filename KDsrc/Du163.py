@@ -8,7 +8,8 @@ import requests, sys, traceback
 from io import StringIO
 
 from requests.api import get
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class Du163:
     def __init__(self, cookie):

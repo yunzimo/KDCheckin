@@ -6,7 +6,8 @@ new Env('WPS签到');
 
 import requests, time, random, json, sys, traceback
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class WPS:
     def __init__(self, cookie):

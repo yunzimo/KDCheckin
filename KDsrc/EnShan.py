@@ -1,38 +1,39 @@
 # -*- coding: utf-8 -*-
 """
-cron: 0 6 * * *
-new Env('Tool工具');
+cron: 55 7 * * *
+new Env('恩山论坛');
 """
 
-import requests, re, sys, traceback
+import requests, re, traceback, sys
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
-class ToolLu:
+class EnShan:
     def __init__(self, cookie):
         self.sio = StringIO()
         self.Cookies = cookie
         self.cookie = ''
 
     def sign(self):
-        url = 'https://id.tool.lu/sign/'
+        url = "https://www.right.com.cn/FORUM/home.php?mod=spacecp&ac=credit&showcredit=1"
         headers = {
-            "cookie": self.cookie,
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
+            'User-Agent':
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36',
+            'Cookie': self.cookie
         }
-        res = requests.get(url=url, headers=headers)
-        day = re.findall('你已经连续签到(.*)，再接再厉！', res.text)
-        if len(day) == 0:
-            self.sio.write('Cookie失效\n')
-            print('Cookie失效')
+        res = requests.get(url, headers=headers)
+        if '登录' in res.text:
+            print("Cookie失效")
+            self.sio.write("Cookie失效\n")
         else:
-            day = day[0].replace(' ', '')
-            self.sio.write(f'连续签到 {day}\n')
-            print(f'连续签到 {day}')
+            coin = re.findall("恩山币: </em>(.*?)nb &nbsp;", res.text)[0]
+            print(f"签到成功, 剩余{coin}nb")
+            self.sio.write(f"签到成功, 剩余{coin}nb\n")
 
     def SignIn(self):
-        print("【Tool工具 日志】")
-        self.sio.write("【Tool工具】\n")
+        print("【恩山论坛 日志】")
+        self.sio.write("【恩山论坛】\n")
         for cookie in self.Cookies:
             cookie = cookie.get("user")
             print(f"{cookie.get('name')} 开始签到...")
@@ -48,18 +49,18 @@ class ToolLu:
 
 if __name__ == '__main__':
     config = getYmlConfig('Cookie.yml')
-    Cookies = config.get('ToolLu')
+    Cookies = config.get('EnShan')
     if Cookies != None:
         if Cookies.get('cookies') != None:
-            toollu = ToolLu(Cookies['cookies'])
-            sio = toollu.SignIn()
+            enshan = EnShan(Cookies['cookies'])
+            sio = enshan.SignIn()
             print(f'\n{sio.getvalue()}')
             if Cookies.get('send') != None and Cookies['send'] == 1:
-                send('Tool工具', sio.getvalue())
+                send('恩山论坛', sio.getvalue())
             else:
                 print('推送失败: 关闭了推送 or send配置问题')
         else:
-            print('配置文件 Tool工具 没有 "cookies"')
+            print('配置文件 恩山论坛 没有 "cookies"')
             sys.exit()
     else:
-        print('配置文件没有 Tool工具')
+        print('配置文件没有 恩山论坛')

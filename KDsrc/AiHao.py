@@ -7,7 +7,8 @@ new Env('爱好论坛');
 import requests, sys, datetime, traceback, re
 from io import StringIO
 from bs4 import BeautifulSoup
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class AiHao:
     def __init__(self, cookie):

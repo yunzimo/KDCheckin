@@ -1,9 +1,5 @@
 # KD签到
 
-![GitHub issues](https://img.shields.io/github/issues/KD-happy/KDCheckin?logo=github) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/KD-happy/KDCheckin?logo=github) ![GitHub forks](https://img.shields.io/github/forks/KD-happy/KDCheckin?logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/KD-happy/KDCheckin?logo=github)
-
-![GitHub last commit](https://img.shields.io/github/last-commit/KD-happy/KDCheckin?logo=github) ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/KD-happy/KDCheckin?logo=github) ![GitHub repo size](https://img.shields.io/github/repo-size/KD-happy/KDCheckin?logo=github)
-
 ## 免责声明
 
 - 本仓库发的任何脚本，仅用于测试和学习研究，禁止用于商业用途，不能保证其合法性，准确性，完整性和有效性，请根据情况自行判断。
@@ -15,25 +11,20 @@
 
 ##  简单的操作
 
-拉取本站
+拉取本站（适配青龙版本2.11.3，上游代码适配最新青龙）
 ```shell
-ql repo https://github.com/KD-happy/KDCheckin.git "AiHao|DuoKan|QianDao|Weather|News" "" "KD"
-\cp -f /ql/data/repo/KD-happy_KDCheckin/*.py /ql/data/scripts/KD-happy_KDCheckin/KDsrc
+ql repo https://github.com/yunzimo/KDCheckin "QianDao" "" "KD"
 ```
 
 将配置文件复制到指定位置
 
-下面的是直接执行再服务器里面的，还要查看是否位置相同（映射到本地的位置）
+在青龙终端执行，将Cookie.yml复制到青龙配置文件夹下：
 
 ```shell
-cp /ql/repo/KD-happy_KDCheckin/Cookie.yml /ql/config/Cookie.yml
+cp /ql/repo/yunzimo_KDCheckin/Cookie.yml /ql/config/Cookie.yml
 ```
 
-不行就直接再qinglong里面执行下面的命令
-
-```shell
-cp /ql/data/repo/KD-happy_KDCheckin/Cookie.yml /ql/data/config/Cookie.yml
-```
+青龙拉库命令解释：
 
 ```shell
 ql repo <repourl> <path> <blacklist> <dependence> <branch>
@@ -52,71 +43,26 @@ exit
 
 添加相关依赖 requirements.txt 文件里面有相关的导包，请自行安装
 
-## 详细操作
+## 创建容器
 
-**1.安装 docer**
-
-[可以看一下](https://zhuanlan.zhihu.com/p/387337954)
-
-更新 yum, 确保 yum 包更新到最新
-``` shell
-sudo yum update
-```
-
-安装的yum工具集
-```shell
-yum install -y yum-utils
-```
-
-安装docker-ce的yum源:
-```shell
-yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-```
-[可以看一下](https://blog.csdn.net/weixin_46152207/article/details/111354882)
-
-安装docker-ce
-```shell
-dnf install docker-ce
-```
-或者yum安装
-```shell
-yum install docker-ce
-```
-
-查看docker服务状态
-```shell
-systemctl status docker.service
-```
-
-开启自启动
-```shell
-systemctl enable docker.service
-```
-
-开启服务
-```shell
-systemctl start docker.service
-```
-
-**2.安装**
-
-拉取镜像文件
-```shell
-docker pull whyour/qinglong:latest
-```
-
-创建容器
+创建容器2.11.3版本（兼容性高）：
 ```shell
 docker run -dit \
-  -v $pwd/ql:/ql/data \
+  -v $PWD/ql/config:/ql/config \
+  -v $PWD/ql/log:/ql/log \
+  -v $PWD/ql/db:/ql/db \
+  -v $PWD/ql/repo:/ql/repo \
+  -v $PWD/ql/raw:/ql/raw \
+  -v $PWD/ql/scripts:/ql/scripts \
+  -v $PWD/ql/jbot:/ql/jbot \
   -p 5700:5700 \
   --name qinglong \
   --hostname qinglong \
-  --restart unless-stopped \
-  whyour/qinglong:latest
+  --restart always \
+  whyour/qinglong:2.11.3
 ```
 
-创建第二个容器
+青龙2.12版本以上
 ```shell
 docker run -dit \
   -v $PWD/ql:/ql/data \
@@ -126,14 +72,6 @@ docker run -dit \
   --restart unless-stopped \
   whyour/qinglong:latest
 ```
-
-## 腾讯云一键部署
-
-```shell
-curl https://cdn.jsdelivr.net/gh/KD-happy/KDCheckin@main/other/go.sh|bash
-```
-
-需要自行添加函数名
 
 ## 本仓库的文件配合
 
@@ -251,7 +189,7 @@ AcFun:
 | [联想](https://club.lenovo.com.cn/signlist/) | 每日签到 | cookie | [silence4u](https://github.com/silence4u/lenovo_auto_signin) + 自制修改 | 🟢 |
 | [多看阅读](https://www.duokan.com/) | 签到、延期、领书、看广告、下载任务 等 | cookie | [Sitoi](https://github.com/Sitoi/dailycheckin) | 🟢️ |
 | [AcFun](https://www.acfun.cn/) | 签到、点赞、弹幕、香蕉 ~~、分享~~ | cookie | [Sitoi](https://github.com/Sitoi/dailycheckin) + 自制修改 | 🟢 |
-| [吾爱破解](https://www.52pojie.cn/) | 签到、获取CB | cookie | 自制 + 模仿 | 🟢️ |
+| [吾爱破解](https://www.52pojie.cn/) | 签到、获取CB | cookie | 自制 + 模仿 | 🔴 |
 | [CCAVA](https://pc.ccava.net/) | 签到 | cookie | 自制 | 🔴 |
 | [CSDN](https://www.csdn.net/) | 签到、抽奖 | cookie | 自制 + 模仿 | 🟢 |
 | [爱好论坛](https://www.aihao.cc/) | 打卡 | cookie | 自制 | 🟢 |

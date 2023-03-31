@@ -6,7 +6,8 @@ new Env('小米运动');
 
 import requests, time, re, random, sys, traceback
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class XMYD:
     def __init__(self, cookie):

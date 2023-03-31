@@ -6,7 +6,8 @@ new Env('什么值得买');
 
 import requests, time, re, json, sys, traceback
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class SMZDM:
     def __init__(self, cookie):

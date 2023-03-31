@@ -6,7 +6,8 @@ new Env('爱奇艺');
 
 import requests, time, re, json, sys, traceback
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 from urllib.parse import unquote
 
 class IQIYI:

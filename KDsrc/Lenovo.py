@@ -7,7 +7,8 @@ import requests, sys, re, traceback, time
 from io import StringIO
 
 from requests.sessions import session
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class Lenovo:
     def __init__(self, cookie):

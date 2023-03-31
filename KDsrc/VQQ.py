@@ -6,7 +6,8 @@ new Env('腾讯视频');
 
 import requests, time, re, sys, traceback
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 from urllib import parse
 
 class VQQ:

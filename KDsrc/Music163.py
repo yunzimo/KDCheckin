@@ -6,7 +6,8 @@ new Env('网易云音乐');
 
 import requests, time, re, json, sys, traceback
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class Music163:
     def __init__(self, cookie):

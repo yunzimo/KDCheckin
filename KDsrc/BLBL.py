@@ -7,7 +7,8 @@ new Env('哔哩哔哩');
 import requests, time, json, sys, traceback
 from io import StringIO
 
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class BLBL:
     def __init__(self, cookie):

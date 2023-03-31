@@ -6,7 +6,8 @@ new Env('CSDN');
 
 import requests, traceback, sys
 from io import StringIO
-from KDconfig import getYmlConfig, send
+from KDconfig import getYmlConfig
+from KDsrc.sendNotify import *
 
 class CSDN:
     def __init__(self, cookie):
